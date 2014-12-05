@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link data-require="bootstrap@*" data-semver="3.2.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
+		<link data-require="bootstrap-css@*" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"  onclick="changeTopic('All')">Home</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="#" onclick="changeTopic('Tech')">Tech</a>
+						</li>
+						<li>
+							<a href="#" onclick="changeTopic('Sport')">Sport</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Culture <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="#" onclick="changeTopic('Society')">Society</a>
+								</li>
+								<li>
+									<a href="#" onclick="changeTopic('Movies')">Movies</a>
+								</li>
+								<li>
+									<a href="#" onclick="changeTopic('Music')">Music</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="#" onclick="changeTopic('Business')">Business</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" onclick="photoGallery()">Photo Gallery</a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Settings <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li class="dropdown-submenu">
+									<a tabindex="-1" href="#">Style</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a tabindex="-1" href="#">Dark</a>
+										</li>
+										<li>
+											<a tabindex="-1" href="#">Light</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<div class = "navbar-form navbar-right" role="rearch">
+						<input type="date" id = "startDateSearch" class="form-control ">
+						<input type="date" id = "finishDateSearch" class="form-control ">
+						<button class="btn btn-default" onclick="search('date')">
+							Submit
+						</button>
+						<input type="text" id = "titleSearch" class="form-control " placeholder="Search">
+						<button class="btn btn-default" onclick="search('title')">
+							Submit
+						</button>
+					</div>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+		<div id ="info">
+			{{#articles}}
+			<h1>{{title}}</h1>
+			<img src={{img}}>
+			<p>
+				{{text}}
+			</p>
+			<small>{{author}} {{stringDate}}</small>
+			<hr>
+			{{/articles}}
+		</div>
+		<div id="links">
+			{{#articles}}
+			<a href={{img}} data-gallery> <img class="smallImg" src={{img}}> </a>
+			{{/articles}}
+		</div>
+		<div id="blueimp-gallery" class="blueimp-gallery" style="display: none;">
+			<!-- The container for the modal slides -->
+			<div class="slides" style="width: 192000px;"></div>
+			<!-- Controls for the borderless lightbox -->
+			<h3 class="title"></h3>
+			<a class="prev">‹</a>
+			<a class="next">›</a>
+			<a class="close">×</a>
+			<a class="play-pause"></a>
+			<ol class="indicator"></ol>
+			<!-- The modal dialog, which will be used to wrap the lightbox content -->
+			<div class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" aria-hidden="true">
+								×
+							</button>
+							<h4 class="modal-title"></h4>
+						</div>
+						<div class="modal-body next"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default pull-left prev">
+								<i class="glyphicon glyphicon-chevron-left"></i>
+								Previous
+							</button>
+							<button type="button" class="btn btn-primary next">
+								Next
+								<i class="glyphicon glyphicon-chevron-right"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<p class="text-center">
+				Aleksey Drobyshevsky, 2014
+			</p>
+		</div>
+		<script data-require="jquery@*" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+		<script data-require="bootstrap@*" data-semver="3.2.0" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js"></script>
+		<script src="script.js"></script>
+	</body>
+
+</html>
