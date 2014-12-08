@@ -2,8 +2,10 @@
 <html>
 
 	<head>
-		<link data-require="bootstrap@*" data-semver="3.2.0" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
-		<link data-require="bootstrap-css@*" data-semver="3.2.0" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		<link href="css/datepicker3.css" rel="stylesheet">
 		<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 		<link rel="stylesheet" href="style.css" />
 	</head>
@@ -70,8 +72,11 @@
 						</li>
 					</ul>
 					<div class = "navbar-form navbar-right" role="rearch">
-						<input type="date" id = "startDateSearch" class="form-control ">
-						<input type="date" id = "finishDateSearch" class="form-control ">
+						<div class="input-daterange input-group" id="datepicker">
+							<input type="text" class="input-sm form-control" name="start" id="startDateSearch"/>
+							<span class="input-group-addon">to</span>
+							<input type="text" class="input-sm form-control" name="end" id="endDateSearch"/>
+						</div>
 						<button class="btn btn-default" onclick="search('date')">
 							Submit
 						</button>
@@ -139,10 +144,11 @@
 				Aleksey Drobyshevsky, 2014
 			</p>
 		</div>
-		<script data-require="jquery@*" data-semver="2.1.1" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="js/jquery-2.1.1.min.js"></script>
 		<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
-		<script data-require="bootstrap@*" data-semver="3.2.0" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-datepicker.js"></script>
 		<script src="script.js"></script>
 	</body>
 

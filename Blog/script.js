@@ -1,5 +1,12 @@
 // Code goes here
 $('.dropdown-toggle').dropdown();
+$('.input-daterange').datepicker({
+    format: "mm/dd/yyyy",
+    todayBtn: "linked",
+    autoclose: true,
+    keyboardNavigation: false,
+});
+
 
 var info = $("#info");
 var links = $("#links");
@@ -48,9 +55,12 @@ var search = function(kind) {
 		document.getElementById("titleSearch").value = "";
 	}
 	if (kind === 'date') {
-		start = document.getElementById("startDateSearch").value;
-		finish = document.getElementById("finishDateSearch").value;
-		if (start > finish) {
+		if(document.getElementById("startDateSearch").value=='' & document.getElementById("endDateSearch").value==''){
+			return;
+		}
+		start = new Date(document.getElementById("startDateSearch").value);
+		end = new Date(document.getElementById("endDateSearch").value);
+		if (start > end) {
 			alert("Wrong date range");
 			return;
 		}
@@ -58,12 +68,12 @@ var search = function(kind) {
 		array = [];
 		for (var index in articles) {
 			article = articles[index];
-			if (article.date >= new Date(start) & article.date <= new Date(finish)) {
+			if (article.date >= start & article.date <= end) {
 				array.push(article);
 			}
 		}
 		document.getElementById("startDateSearch").value = "";
-		document.getElementById("finishDateSearch").value = "";
+		document.getElementById("endDateSearch").value = "";
 	}
 	data.articles = array;
 	info.html(Mustache.render(template, data));
