@@ -74,31 +74,44 @@
 					</ul>
 					<div class = "navbar-form navbar-right" role="rearch">
 						<div class="input-daterange input-group" id="datepicker">
-							<input type="text" class="input-sm form-control" name="start" id="startDateSearch"/>
+							<input type="text" class="form-control" name="start" id="startDateSearch"/>
 							<span class="input-group-addon">to</span>
-							<input type="text" class="input-sm form-control" name="end" id="endDateSearch"/>
+							<input type="text" class="form-control" name="end" id="endDateSearch"/>
 						</div>
 						<button class="btn btn-default" onclick="search('date')">
-							Submit
+							<i class="glyphicon glyphicon-search"></i>
 						</button>
 						<input type="text" id = "titleSearch" class="form-control " placeholder="Search">
 						<button class="btn btn-default" onclick="search('title')">
-							Submit
+							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
 		<div id ="info">
-			{{#articles}}
-			<h1>{{title}}</h1>
-			<img src={{img}}>
-			<p>
-				{{text}}
-			</p>
-			<small>{{author}} {{stringDate}}</small>
-			<hr>
-			{{/articles}}
+			<div class="info-left">
+				{{#articles}}
+				<h1>{{title}}</h1>
+				<img src={{img}}>
+				<p class="text-justify">
+					{{text}}
+				</p>
+				<small>{{author}} {{stringDate}}</small>
+				<hr>
+				{{/articles}}
+			</div>
+			<div class="info-right">
+				<h3 class="text-center">Most popular</h3>
+				{{#articles}}
+				<div class="media">
+					<a class="media-left media-middle" href="#" onclick="showOne('{{title}}')"> <img src={{img}} > </a>
+					<div class="media-body">
+						<h4 class="media-heading">{{title}}</h4>
+					</div>
+				</div>
+				{{/articles}}
+			</div>
 		</div>
 		<div id="links">
 			{{#articles}}
@@ -129,7 +142,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default pull-left prev">
 								<i class="glyphicon glyphicon-chevron-left"></i>
-								Previous
+								Prev
 							</button>
 							<button type="button" class="btn btn-primary next">
 								Next
@@ -141,6 +154,7 @@
 			</div>
 		</div>
 		<div class="footer">
+			<br>
 			<p class="text-center">
 				Aleksey Drobyshevsky, 2014
 			</p>

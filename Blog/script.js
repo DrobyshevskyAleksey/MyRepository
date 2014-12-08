@@ -7,24 +7,34 @@ $('.input-daterange').datepicker({
     keyboardNavigation: false,
 });
 
-
 var info = $("#info");
+var infoLeft = $(".info-left");
+var infoRight = $(".info-right");
 var links = $("#links");
-var template = info.html();
+var template = infoLeft.html();
+var popularTemplate = infoRight.html();
 var imgTemplate = links.html();
-var articles = [];
 var topic = 'All';
-
-var data = {
-	articles : articles
-};
 
 var changeTopic = function(topicName) {
 	topic = topicName;
 	changeData();
 	links.hide();
 	info.show();
-	info.html(Mustache.render(template, data));
+	infoLeft.html(Mustache.render(template, data));
+};
+
+var showOne = function(title){
+	array = [];
+	for (var index in articles) {
+		article = articles[index];
+		if(article.title==title){
+			array.push(article);
+			break;
+		}
+	};
+	data.articles = array;
+	infoLeft.html(Mustache.render(template, data));
 };
 
 var changeData = function() {
@@ -45,21 +55,25 @@ var search = function(kind) {
 	if (kind === 'title') {
 		links.hide();
 		array = [];
-		regexp = document.getElementById("titleSearch").value.trim().toLowerCase();
+		regexp = $("#titleSearch").val().trim().toLowerCase();
+		if(regexp==''){
+			return;
+		}
 		for (var index in articles) {
 			article = articles[index];
 			if (article.title.toLowerCase().search(regexp) + 1) {
 				array.push(article);
 			}
 		}
-		document.getElementById("titleSearch").value = "";
+		$("#titleSearch").val('');
 	}
 	if (kind === 'date') {
-		if(document.getElementById("startDateSearch").value=='' & document.getElementById("endDateSearch").value==''){
+		if($("#startDateSearch").val()=='' & $("#endDateSearch").val()==''){
 			return;
 		}
-		start = new Date(document.getElementById("startDateSearch").value);
-		end = new Date(document.getElementById("endDateSearch").value);
+		start = new Date($("#startDateSearch").val());
+		end = new Date($("#endDateSearch").val());
+		
 		if (start > end) {
 			alert("Wrong date range");
 			return;
@@ -72,11 +86,10 @@ var search = function(kind) {
 				array.push(article);
 			}
 		}
-		document.getElementById("startDateSearch").value = "";
-		document.getElementById("endDateSearch").value = "";
 	}
 	data.articles = array;
-	info.html(Mustache.render(template, data));
+	infoLeft.html(Mustache.render(template, data));
+	info.show();
 };
 
 var photoGallery = function() {
@@ -87,7 +100,8 @@ var photoGallery = function() {
 };
 
 //objects
-var interstellar = {
+var articles = [
+{
 	title : "«Интерстеллар» собрал в прокате $450 миллионов",
 	img : "http://content.onliner.by/news/2014/11/default/534c1f011cf91efdfd05895472f4a1af.jpg",
 	author : "Ян Альшевский",
@@ -95,10 +109,9 @@ var interstellar = {
 	date : new Date("11/24/2014"),
 	stringDate : '24.11.2014',
 	text : "Фантастическая картина Кристофера Нолана вышла в широкий прокат 6 ноября, успев за прошедшее время собрать кассу в $450 млн, $120,7 млн из которых приходится на кинотеатры США. Отмечается, что ленту невероятно тепло приняли зрители в Китае, где за 12 дней она принесла $82,5 млн. Также Warner Bros. Pictures поставила рекорд в Южной Корее и России.Кроме того, «Интерстеллар» стал самым успешным фильмом Кристофера Нолана (исходя из прошедшего времени проката), демонстрируя незначительное снижение зрительского интереса по прошествии первой и второй недель проката, передает The Hollywood Reporter.Также отмечаются успехи еще одной фантастической картины — «Голодные игры: Сойка-пересмешница. Часть I» (заработала за дебютный уикенд $275 млн, больше половины из них приходится на международный прокат)."
-};
-articles.push(interstellar);
+},
 
-var alienware = {
+{
 	title : "Игровая приставка Alienware Alpha поступила в продажу",
 	img : "http://content.onliner.by/news/2014/11/default/7f89eddc23219c5efe8366a9abda339e.jpg",
 	author : "Ян Альшевский",
@@ -106,10 +119,9 @@ var alienware = {
 	date : new Date("11/24/2014"),
 	stringDate : '24.11.2014',
 	text : "Компания Dell начала поставки консоли Alienware Alpha покупателем, ранее оформившим предварительный заказ на игровую систему. Приставка доступна в четырех вариантах по цене $550, $700, $800 и $900. В комплект входит беспроводной контроллер от Xbox 360, который временно заменяет собственный контроллер Valve (его выход отложен до 2015 года). Базовая версия Alienware Alpha получила 2-ядерный процессор Intel Core i3-4130T с тактовой частотой 2,9 ГГц, модифицированную версию видеокарты NVIDIA GeForce GTX 860M с 2 ГБ памяти, 4 ГБ оперативной памяти и жесткий диск емкостью 500 ГБ. Модель за $700 имеет удвоенный объем оперативной памяти и жесткий диск на 1 ТБ, остальные компоненты идентичны. Alienware Alpha за $800 оборудован 4-ядерным процессором i5-4590T с частотой 3 ГГц, старшая модель имеет 4-ядерный процессор i7-4765T с тактовой частотой 3 ГГц, жесткий диск на 2 ТБ и 8 ГБ оперативной памяти. Все модели игровой системы получили модули Wi-Fi, Bluetooth 4.0, два фронтальных порта USB 2.0 и два USB 3.0, размещенных на задней панели. Там же имеются разъемы Ethernet, HDMI, для оптического кабеля и выходы звуковой карты. Во всех приставках, отмечает производитель, имеется возможность без труда заменить комплектующие более производительными. Консоли работают под управлением Windows 8.1, так как релиз SteamOS также отложен на будущий год."
-};
-articles.push(alienware);
+},
 
-var operation = {
+{
 	title : "Лукашенко сделали операцию на коленном суставе",
 	img : "http://content.onliner.by/news/2014/11/default/df324d919ac74659a88d6c1648cf08b0.jpg",
 	author : "БЕЛТА",
@@ -117,10 +129,9 @@ var operation = {
 	date : new Date("11/22/2014"),
 	stringDate : '22.11.2014',
 	text : "Президенту Беларуси Александру Лукашенко сделали операцию на коленном суставе. Об этом сегодня в эфире телеканала СТВ заявила пресс-секретарь президента Беларуси Наталья Эйсмонт, сообщает БЕЛТА.  «Причиной операции стала спортивная травма, полученная во время одной из тренировок по хоккею. Операция была плановой, но из-за плотного, насыщенного графика президента Беларуси провести ее ранее не представлялось возможным. В настоящее время президент Беларуси чувствует себя удовлетворительно. Он находится в своей загородной резиденции. Для реабилитации понадобится 3—4 дня. Свои обязанности президент выполняет в полном объеме», — заявила пресс-секретар. Операцию главе государства провели в Республиканском клиническом медицинском центре Управления делами президента Беларуси."
-};
-articles.push(operation);
+},
 
-var exchangeRates = {
+{
 	title : "Итоги валютных торгов: российский рубль дорожает, белорусский — грустит",
 	img : "http://content.onliner.by/news/2014/11/default/bb11d35f8ef9e56a4732ba337416bfaa_1417102757.jpg",
 	author : "Александр Владыко",
@@ -128,10 +139,9 @@ var exchangeRates = {
 	date : new Date("11/21/2014"),
 	stringDate : '21.11.2014',
 	text : "На Белорусской валютно-фондовой бирже прошли очередные торги. Стоимость доллара не изменилась после вчерашнего роста. 10 780 белорусских рублей за доллар, как и вчера. Евро и российский рубль снова подорожали. Европейская валюта продолжает свой плавный рост, сегодня добавив еще 10 рублей к собственной цене — 13 520 белорусских рублей в итоге. Резче обычного подросла стоимость российского рубля — сразу на 5 пунктов, до 235 белорусских. Об этом Onliner.by сообщили в банке «Москва-Минск». В четверг курс доллара вырос на 10 рублей — 10 780 белорусских. Евро подорожал на 30 рублей — до 13 510 белорусских. Российский рубль едва вырос — 230 белорусских."
-};
-articles.push(exchangeRates);
+},
 
-var nanoRussia = {
+{
 	title : "В России открыли лабораторию по производству наноброни",
 	img : "http://content.onliner.by/news/2014/11/default/6ce3507d36046643fa7cc5f10609a78b.jpg",
 	author : "Ян Альшевский",
@@ -139,10 +149,9 @@ var nanoRussia = {
 	date : new Date("11/21/2014"),
 	stringDate : '21.11.2014',
 	text : "Фонд перспективных исследований открыл в Саратовском государственном университете (СГУ) лабораторию по производству наноброни и других материалов спецназначения, сообщает «РИА Новости». Предполагается, что лаборатория позволит в будущем разрабатывать и производить броню на основе нановолокон кевлара и сверхвысокомолекулярного полиэтилена, системы ультратонкой фильтрации воздуха, газов и жидкостей, а также топливные ячейки. «Цель лаборатории — создание перспективных материалов, использование технологического задела СГУ в этой области и работа над будущими разработками. Нам интересно все, что может привести к революции. Мы ставим суперзадачи перед нашими лабораториями», — гендиректор фонда Андрей Григорьев. По его словам, лаборатория также дает возможность молодым ученым проявить себя и решить большие научные задачи. Как отметили в фонде, последние несколько лет СГУ успешно занимается разработкой нетканых волокнистых материалов нового поколения, обладающих уникальными свойствами благодаря сверхмалому диаметру волокон."
-};
-articles.push(nanoRussia);
+},
 
-var brazilTalisman = {
+{
 	title : "Бразилия представила талисманы Олимпийских игр 2016 года",
 	img : "http://content.onliner.by/news/2014/06/default/423d161169be26ab122dece633951e0d.jpg",
 	author : "БЕЛТА",
@@ -150,9 +159,17 @@ var brazilTalisman = {
 	date : new Date("11/24/2014"),
 	stringDate : '24.11.2014',
 	text : "24 ноября, Минск /Корр. БЕЛТА/. В Бразилии презентовали талисманы Олимпиады 2016 года, которая пройдет в Рио-де-Жанейро. Ими стали собирательные образы животного и растительного мира Бразилии.  Образ бразильской фауны представлен в виде улыбающегося желтого зверя, который чем-то напоминает кота. А вот образ бразильской флоры напоминает растение сине-зеленого цвета с листьями на голове. Теперь бразильцам предстоит выбрать имена для талисманов. Голосование будет проходить в интернете. На выбор предлагаются три пары имен - Оба и Эба, Тиба-Туки и Эскиндим, Винисиус и Том. Ожидается, что в ближайшее время символы бразильской Олимпиады станут героями шоу, которое будет запущено на бразильском телевидении. Олимпийские игры пройдут в Рио-де-Жанейро с 5 по 21 августа 2016 года. Напомним, в 2014 году Бразилия принимала чемпионат мира по футболу."
+}
+];
+
+var data = {
+	articles: articles
 };
-articles.push(brazilTalisman);
+var popularData = {
+	articles: articles
+};
 
 //init
-info.html(Mustache.render(template, data));
+infoLeft.html(Mustache.render(template, data));
+infoRight.html(Mustache.render(popularTemplate, popularData));
 
