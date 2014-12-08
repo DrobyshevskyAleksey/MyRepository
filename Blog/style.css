@@ -41,7 +41,7 @@
 	border-radius: 6px 0 6px 6px;
 }
 
-* {
+.navbar {
 	-webkit-border-radius: 0 !important;
 	-moz-border-radius: 0 !important;
 	border-radius: 0 !important;
