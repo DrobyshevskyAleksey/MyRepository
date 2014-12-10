@@ -91,42 +91,30 @@
 		</nav>
 		<div id ="info">
 			<div class="info-left">
-				<nav>
+				<nav class="pages text-center">
 					<ul class="pagination">
-						<li>
-							<a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a>
-						</li>
 						{{#pages}}
 						<li>
 							<a href="#" onclick="pagination({{page}})">{{page}}</a>
 						</li>
 						{{/pages}}
-						<li>
-							<a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>
-						</li>
 					</ul>
 				</nav>
-				{{#articles}}
-				<h1>{{title}}</h1>
-				<img src={{img}}>
-				<p class="text-justify">
-					{{text}}
-				</p>
-				<small>{{author}} {{stringDate}}</small>
-				<hr>
+				<div class="articles">
+					{{#articles}}
+					<h1>{{title}}</h1>
+					<img src={{img}}>
+					<p class="text-justify">
+						{{text}}
+					</p>
+					<small>{{author}} {{stringDate}}</small>
 				{{/articles}}
-				<nav>
+				</div>
+				<nav class="pages text-center">
 					<ul class="pagination">
-						<li>
-							<a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a>
-						</li>
 						{{#pages}}
 						<li>
 							<a href="#" onclick="pagination({{page}})">{{page}}</a>
-						</li>
-						{{/pages}}
-						<li>
-							<a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a>
 						</li>
 					</ul>
 				</nav>
@@ -134,14 +122,12 @@
 			<div class="info-right">
 				<h3 class="text-center">Most popular</h3>
 				<hr>
-				{{#articles}}
+				{{#allArticles}}
 				<div class="media">
 					<a class="media-left media-middle" href="#" onclick="showOne('{{title}}')"> <img src={{img}} > </a>
-					<div class="media-body">
-						<h4 class="media-heading">{{title}}</h4>
-					</div>
+					<h5 class="media-heading">{{title}}</h5>
 				</div>
-				{{/articles}}
+				{{/allArticles}}
 			</div>
 		</div>
 		<div id="links">
@@ -196,6 +182,7 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/bootstrap-datepicker.js"></script>
+		<script src="js/objects.js"></script>
 		<script src="script.js"></script>
 	</body>
 
